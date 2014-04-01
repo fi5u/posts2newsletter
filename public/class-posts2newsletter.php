@@ -230,8 +230,13 @@ class Posts2newsletter {
 	 * @since    0.0.1
 	 */
 	private static function single_activate() {
-        function install_main_table() {
-            global $wpdb;
+        function install_options() {
+            $options_array = [];
+            $options_array['active_campaign'] = 0;
+            $options_array['active_template'] = 0;
+
+            add_option('posts2newsletter_options', $options_array);
+            /*global $wpdb;
 
             $table_name = $wpdb->prefix . "posts2newsletter";
             $sql = "CREATE TABLE $table_name (
@@ -242,7 +247,7 @@ class Posts2newsletter {
                     );";
 
             require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-            dbDelta( $sql );
+            dbDelta( $sql );*/
         }
 
         function install_campaigns_table() {
@@ -261,7 +266,7 @@ class Posts2newsletter {
             dbDelta( $sql );
         }
 
-        install_main_table();
+        install_options();
         install_campaigns_table();
 	}
 

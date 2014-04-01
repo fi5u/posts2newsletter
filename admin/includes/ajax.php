@@ -15,6 +15,14 @@
             $success = 1;
         }
 
+        // Find the last inserted ID to use for settings
+        $last_id = $wpdb->insert_id;
+
+        // Update active campaign setting with last added ID
+        $table_name = $wpdb->prefix . "posts2newsletter";
+        $strQuery = "UPDATE $table_name SET campaign = %d WHERE id = 1";
+        $wpdb->query($wpdb->prepare( $strQuery, $last_id ) );
+
         echo $success;
 
         die();
